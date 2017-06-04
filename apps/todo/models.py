@@ -10,6 +10,7 @@ class Label(models.Model):
         return self.name
 
 
+# TODO: Remove main_label from labels list
 class List(models.Model):
     description = models.CharField(max_length=256, null=True, blank=True)
     main_label = models.ForeignKey(Label, related_name='lists')
@@ -34,6 +35,7 @@ class Task(models.Model):
 
     list = models.ForeignKey(List, null=True, blank=True, related_name='tasks')
     text = models.CharField(max_length=256)
+    comment = models.TextField(null=True, blank=True)
     priority = models.IntegerField(default=1, choices=PRIORITY_CHOICES)
     resolved = models.BooleanField(default=False)
     # resolved_as = models.IntegerField(default=1, choices=RESOLVED_STATUS)
@@ -43,4 +45,4 @@ class Task(models.Model):
 
     def __str__(self):
         resolved_symbol = '+' if self.resolved else '-'
-        return f'{self.text} ({self.get_priority_display()}, status: {resolved_symbol})'
+        return f'{self.text} ({self.get_priority_display()}, {resolved_symbol})'
