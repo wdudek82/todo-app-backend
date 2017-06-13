@@ -19,6 +19,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/', include('apps.api.urls', namespace='api')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
@@ -28,4 +29,3 @@ if settings.DEBUG:
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
-

@@ -50,5 +50,5 @@ class Task(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        resolved_symbol = '+' if self.resolved else '-'
+        resolved_symbol = 'done' if self.resolved else 'pending'
         return f'{self.text} ({self.get_priority_display()}, {resolved_symbol})'
