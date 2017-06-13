@@ -1,27 +1,33 @@
 from django.db import models
+from django.utils import timezone
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 
-class Label(models.Model):
-    name = models.CharField(max_length=30)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
 
 
-# TODO: Remove main_label from labels list
 class List(models.Model):
-    description = models.CharField(max_length=256, null=True, blank=True)
-    main_label = models.ForeignKey(Label, related_name='lists')
-    labels = models.ManyToManyField(Label, blank=True)
+    title = models.CharField(max_length=256, blank=True)
+    description = models.TextField(null=True, blank=True)
     # author = models.ForeignKey()
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.id}: {self.main_label}'
+        return f'{self.id}: {self.title}'
+
+    @staticmethod
+    def get_list_title():
+        now = str(timezone.now())[:16]
+        return f'List {now}'
+
+
+@receiver(pre_save, sender=List)
+def pre_save_list(sender, instance, **kwargs):
+    if not instance.title:
+        print('nope')
+        instance.title = List.get_list_title()
 
 
 class Task(models.Model):

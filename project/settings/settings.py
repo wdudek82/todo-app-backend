@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Third party
     'debug_toolbar',
+    'rest_framework',
 
     # Project apps
     'apps.todo',
@@ -135,3 +136,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+# Rest Framework Config
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 100,
+}

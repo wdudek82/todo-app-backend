@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.utils.html import format_html_join, format_html, mark_safe
-from .models import Label, List, Task
+from django.utils.html import format_html, mark_safe
+from .models import List, Task
 
 
 class TaskInline(admin.TabularInline):
@@ -8,26 +8,13 @@ class TaskInline(admin.TabularInline):
     extra = 1
 
 
-@admin.register(Label)
-class LabelAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'created_at', 'updated_at']
-    list_display_links = ['name']
-
-
 @admin.register(List)
 class ListAdmin(admin.ModelAdmin):
-    list_display = ['id', 'main_label', 'get_labels', 'description', 'get_tasks', 'is_active',
-                    'created_at', 'updated_at']
-    list_display_links = ['main_label']
-    filter_horizontal = ['labels']
+    list_display = ['id', 'title', 'description', 'get_tasks', 'is_active', 'created_at', 'updated_at']
+    list_display_links = ['title']
     inlines = [TaskInline]
-    list_filter = ['main_label', 'created_at', 'updated_at']
+    list_filter = ['created_at', 'updated_at']
     search_fields = ['labels_name', 'tasks__text']
-
-    def get_labels(self, instance):
-        labels = [str(label) for label in instance.labels.all()]
-        return mark_safe('<br>'.join(labels)) if labels else '-'
-    get_labels.short_description = 'labels'
 
     def get_tasks(self, instance):
         tasks = [f'<li>{str(task)}</li>' for task in instance.tasks.all()]
