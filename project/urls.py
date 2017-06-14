@@ -16,11 +16,22 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from rest_framework_swagger.views import get_swagger_view
+
+
+schema_view = get_swagger_view(title='ToDo App API')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('apps.api.urls', namespace='api')),
+
+    # Api
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^api/api-test/', include('apps.api-test.urls', namespace='api-test')),
+    url(r'^api/todo/', include('apps.todo.api.urls', namespace='todo')),
+
+    # Swagger
+    url('^api/schema/$', schema_view)
 ]
 
 
