@@ -20,7 +20,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class ListSerializer(serializers.ModelSerializer):
-    tasks = TaskSerializer(many=True)
+    tasks = TaskSerializer(many=True, read_only=True)
 
     class Meta:
         model = List
