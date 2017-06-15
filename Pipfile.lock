@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8d16c64b4b2310294701212b4a21921d946491668f42ccc75ba83829c5afa9f5"
+            "sha256": "4ac22bec6a3de1df91bbd77023a4ba349cba012bfd3d39b39e9dad7409ba2300"
         },
         "requires": {},
         "sources": [
@@ -29,6 +29,9 @@
         },
         "django": {
             "version": "==1.11.2"
+        },
+        "django-cors-headers": {
+            "version": "==2.1.0"
         },
         "django-rest-swagger": {
             "version": "==2.1.2"

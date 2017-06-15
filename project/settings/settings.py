@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party
+    'corsheaders',
     'debug_toolbar',
     'rest_framework',
     'rest_framework_swagger',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -138,6 +140,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+
 # Rest Framework Config
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -147,3 +150,6 @@ REST_FRAMEWORK = {
     ],
     'PAGE_SIZE': 100,
 }
+
+
+CORS_ORIGIN_ALLOW_ALL = True
